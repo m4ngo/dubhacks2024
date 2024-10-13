@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'data_app/styles.css' %}">
+    <title>Nourify - Upload Receipt</title>
+</head>
+<body>
+    <div id="navbar-placeholder"></div>
+
+    <div class="container mt-5">
+        <h2 class="text-center">Upload Receipt</h2>
+        <form class="shadow p-4 rounded bg-white" id="receiptForm">
+            <div class="form-group">
+                <label for="amountOwed">Amount Owed</label>
+                <input type="text" class="form-control" id="amountOwed" placeholder="Amount to be paid" readonly>
+            </div>
+            <div class="form-group">
+                <label for="receiptFile">Upload Receipt</label>
+                <input type="file" class="form-control-file" id="receiptFile" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Submit Receipt</button>
+        </form>
+    </div>
+
+    <footer class="bg-light text-center py-4">
+        <p class="mb-0">© 2024 Nourify. All rights reserved.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(function() {
+            $("#navbar-placeholder").load("navbar.html");
+
+            // Fetch amount owed from the backend
+            $.ajax({
+                url: '/api/amount_owed/',  // Replace with your actual endpoint
+                method: 'GET',
+                success: function(data) {
+                    $('#amountOwed').val(data.amount);  // Assume the response contains { "amount": value }
+                },
+                error: function() {
+                    alert("Error loading amount owed.");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

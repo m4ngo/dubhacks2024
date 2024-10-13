@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'data_app/styles.css' %}">
+    <title>Nourify - My Quests</title>
+</head>
+<body>
+    <div id="navbar-placeholder"></div>
+
+    <div class="container mt-5">
+        <h2 class="text-center">My Created Quests</h2>
+        <ul class="list-group">
+            {% for quest in user_quests %}
+                <li class="list-group-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>{{ quest.item }}</strong>
+                            <br>
+                            <small class="text-muted">Associated User ID: {{ quest.user.user_id }}</small>
+                            <br>
+                            <small class="text-muted">Quest Valid: {{ quest.valid }}</small>
+                        </div>
+                        <!-- Show the delete button only if the quest is not valid -->
+                        {% if quest.valid != "True" %}
+                            <form method="POST" action="{% url 'delete_quest' quest.item %}">
+                                {% csrf_token %}
+                                <button class="btn btn-danger btn-sm">Delete Quest</button>
+                            </form>
+                        {% else %}
+                            <span class="badge badge-success">Quest Active</span>
+                        {% endif %}
+                    </div>
+                </li>
+            {% empty %}
+                <li class="list-group-item text-center">
+                    <strong>No quests found.</strong>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <footer class="bg-light text-center py-4">
+        <p class="mb-0">© 2023 Nourify. All rights reserved.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(function(){
+            $("#navbar-placeholder").load("{% url 'navbar' %}");
+        });
+    </script>
+</body>
+</html>

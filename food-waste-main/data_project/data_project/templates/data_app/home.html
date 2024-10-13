@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'data_app/styles.css' %}">
+    <title>Nourify - Home</title>
+</head>
+<body>
+    <div id="navbar-placeholder"></div>
+
+    <div class="container mt-5 text-center">
+        <img src="{% static 'nourify_logo.jpg' %}" alt="Nourify Logo" class="img-fluid mb-4" style="max-width: 250px;">
+        <h1 class="text-center mb-4">Welcome to Nourify</h1>
+        <p class="text-center mb-4">Your go-to platform for quests around campus!</p>
+        <div class="text-center">
+            <a href="{% url 'create_quest' %}" class="btn btn-primary btn-lg mx-2">Create a Quest</a>
+            <a href="{% url 'quest_list' %}" class="btn btn-success btn-lg mx-2">Find Local Quests</a>
+        </div>
+    </div>
+
+    <footer class="bg-light text-center py-4">
+        <p class="mb-0">© 2024 Nourify. All rights reserved.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(function(){
+            $("#navbar-placeholder").load("navbar.html");
+        });
+    </script>
+</body>
+</html>
