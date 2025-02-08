@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <title>Nourify - My Quests</title>
+</head>
+<body>
+    <div id="navbar-placeholder"></div>
+
+    <div class="container mt-5">
+        <h2 class="text-center">My Created Quests</h2>
+        <ul class="list-group">
+            <li class="list-group-item">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>Quest Title</strong>
+                        <br>
+                        <small class="text-muted">Grocery Items: Apples, Bread</small>
+                        <br>
+                        <small class="text-muted">Pickup Location: Campus Store</small>
+                    </div>
+                    <button class="btn btn-danger btn-sm">Delete Quest</button>
+                </div>
+            </li>
+            <!-- Add more created quests as needed -->
+        </ul>
+    </div>
+
+    <footer class="bg-light text-center py-4">
+        <p class="mb-0">© 2023 Nourify. All rights reserved.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(function(){
+            $("#navbar-placeholder").load("navbar.html");
+        });
+    </script>
+</body>
+</html>

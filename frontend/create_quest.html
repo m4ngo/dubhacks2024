@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <title>Nourify - Create Quest</title>
+</head>
+<body>
+    <div id="navbar-placeholder"></div>
+
+    <div class="container mt-5">
+        <h2 class="text-center">Create a New Quest</h2>
+        <form class="shadow p-4 rounded bg-white">
+            <div class="form-group">
+                <label for="groceryItems">Grocery Items</label>
+                <input type="text" class="form-control" id="groceryInput" placeholder="Start typing to search..." onkeyup="searchItems()" autocomplete="off">
+                <ul id="itemList" class="list-group mt-2" style="display: none;"></ul>
+            </div>
+            <div class="form-group">
+                <label for="selectedItems">Selected Items</label>
+                <div id="selectedItemsContainer" class="border p-2 mb-2" style="min-height: 100px;">
+                    <!-- Selected items will be displayed here -->
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="pickup_location">Pickup Location</label>
+                <input type="text" class="form-control" id="pickup_location" placeholder="Enter pickup location" required>
+            </div>
+            <button type="submit" class="btn btn-success btn-block">Create Quest</button>
+        </form>
+    </div>
+
+    <footer class="bg-light text-center py-4">
+        <p class="mb-0">© 2023 Nourify. All rights reserved.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(function(){
+            $("#navbar-placeholder").load("navbar.html");
+        });
+
+        let groceryItems = [
+    "Kirkland Signature Organic Apples - 3 lbs",
+    "Chiquita Bananas - 2.5 lbs",
+    "Dave's Killer Bread - 2 loaves",
+    "Kirkland Signature Salted Butter - 4 sticks",
+    "Sargento Cheddar Cheese - 24 slices",
+    "Eggland's Best Large Eggs - 2 dozen",
+    "California Grapes - 2 lbs",
+    "Kirkland Signature Whole Milk - 1 gallon",
+    "Tropicana Pure Premium Orange Juice - 2 half-gallon cartons",
+    "Jasmine Rice - 25 lbs",
+    "Roma Tomatoes - 3 lbs",
+    "Idaho Potatoes - 10 lbs",
+    "Kirkland Signature Rotisserie Chicken - 1 whole chicken",
+    "Kirkland Signature Fresh Salmon - 2 lbs",
+    "Chobani Greek Yogurt - 12 cups",
+    "Kirkland Signature Granola Cereal - 3 lbs",
+    "Barilla Spaghetti Pasta - 3 lbs",
+    "Morton Sea Salt - 3 lbs",
+    "McCormick Black Pepper - 2.5 oz"
+];
+
+
+        let selectedItems = [];
+
+        function searchItems() {
+            const input = document.getElementById('groceryInput').value.toLowerCase();
+            const itemList = document.getElementById('itemList');
+            itemList.innerHTML = ''; // Clear previous results
+
+            if (input) {
+                const filteredItems = groceryItems.filter(item => item.toLowerCase().includes(input));
+                filteredItems.forEach(item => {
+                    const li = document.createElement('li');
+                    li.className = 'list-group-item list-group-item-action';
+                    li.innerText = item;
+                    li.onclick = function() {
+                        addItemToSelected(item);
+                    };
+                    itemList.appendChild(li);
+                });
+                itemList.style.display = filteredItems.length ? 'block' : 'none'; // Show or hide the list
+            } else {
+                itemList.style.display = 'none'; // Hide if input is empty
+            }
+        }
+
+        function addItemToSelected(item) {
+            if (!selectedItems.includes(item)) {
+                selectedItems.push(item);
+                updateSelectedItems();
+            }
+            document.getElementById('groceryInput').value = ''; // Clear the input
+            document.getElementById('itemList').style.display = 'none'; // Hide the dropdown
+        }
+
+        function updateSelectedItems() {
+            const container = document.getElementById('selectedItemsContainer');
+            container.innerHTML = ''; // Clear previous items
+
+            selectedItems.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'd-flex justify-content-between align-items-center border-bottom py-1';
+                div.innerText = item;
+
+                const removeButton = document.createElement('button');
+                removeButton.className = 'btn btn-danger btn-sm';
+                removeButton.innerText = 'Remove';
+                removeButton.onclick = function() {
+                    removeItem(item);
+                };
+
+                div.appendChild(removeButton);
+                container.appendChild(div);
+            });
+        }
+
+        function removeItem(item) {
+            selectedItems = selectedItems.filter(i => i !== item);
+            updateSelectedItems();
+        }
+    </script>
+</body>
+</html>
